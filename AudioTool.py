@@ -13,15 +13,17 @@ class Audio:
         try:
             audio = FLAC(self.path)
             audio['ARTIST'] = self.Artist
-            print(audio)
             audio.save()
         except:
-            tags = ID3(self.path)
-            tags['TPE1'] = TPE1(
-                encoding=3,
-                text=self.Artist
-            )
-            tags.save(self.path)
+            try:
+                tags = ID3(self.path)
+                tags['TPE1'] = TPE1(
+                    encoding=3,
+                    text=self.Artist
+                )
+                tags.save(self.path)
+            except:
+                pass
 
     @property
     def Title(self):
@@ -120,19 +122,19 @@ class AudioTool:
 
         try:
             os.rename(au.path, au.dir + "\\" + fname)
-            print('Successfully Renamed ' + au.path +
-                  ' as ' + au.dir + "\\" + fname)
+            # print('Successfully Renamed ' + au.path +
+                #   ' as ' + au.dir + "\\" + fname)
         except Exception as e:
             print('Unexpected Error Occurred While Renaming File: ' + au.path)
             print(e)
 
         try:
             shutil.move(au.dir + "\\" + fname, self.fjoin(dirname, fname))
-            print('Successfully Moved Song: ' + au.path)
+            # print('Successfully Moved Song: ' + au.path)
             if os.path.exists(au.dir + "\\" + lrcname):
                 shutil.move(au.dir + "\\" + lrcname,
                             self.fjoin(dirname, lrcname))
-                print('Successfully Moved Lrc: ' + lrcname)
+                # print('Successfully Moved Lrc: ' + lrcname)
         except Exception as e:
             print('Unexpected Error Occurred While Moiving File: ' + au.path)
             print(e)
