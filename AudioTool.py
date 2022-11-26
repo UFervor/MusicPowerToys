@@ -10,6 +10,18 @@ class Audio:
         self.path = os.path.abspath(path)
         self.delimiter = delimiter
         self.dir = os.path.dirname(self.path)
+        try:
+            audio = FLAC(self.path)
+            audio['ARTIST'] = self.Artist
+            print(audio)
+            audio.save()
+        except:
+            tags = ID3(self.path)
+            tags['TPE1'] = TPE1(
+                encoding=3,
+                text=self.Artist
+            )
+            tags.save(self.path)
 
     @property
     def Title(self):
@@ -77,7 +89,7 @@ class Audio:
 
 
 class AudioTool:
-    def __init__(self, base, suffix=["mp3", "flac", "aif"], delimiter=['&', '/', 'ft.', 'feat.', '\\\\'], limit=8):
+    def __init__(self, base, suffix=["mp3", "flac", "aif"], delimiter=['/', 'ft.', 'feat.', '\\', '\\\\'], limit=8):
         self.base = base.strip("/\\")
         self.suffix = suffix
         self.delimiter = delimiter
@@ -89,19 +101,6 @@ class AudioTool:
         return self.base + "\\" + dir + "\\" + name
 
     def sed(self, au):
-        # 歌手分割
-        try:
-            audio = FLAC(au.path)
-            audio['ARTIST'] = '\\\\'.join(au.Artist)
-            audio.save()
-        except:
-            tags = ID3(au.path)
-            tags['TPE1'] = TPE1(
-                encoding=3,
-                text='\\\\'.join(au.Artist)
-            )
-            tags.save(au.path)
-
         dirname = " - ".join(list(filter(None,
                              [', '.join(self.artists[au.Album]), au.Album])))
 
