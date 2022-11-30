@@ -6,10 +6,11 @@ import shutil
 
 
 class Audio:
-    def __init__(self, path, delimiter):
+    def __init__(self, path, delimiter, cap={"Artist": True, }):
         self.path = os.path.abspath(path)
         self.delimiter = delimiter
         self.dir = os.path.dirname(self.path)
+        self.cap = cap
         try:
             audio = FLAC(self.path)
             audio['ARTIST'] = self.Artist
@@ -40,6 +41,9 @@ class Audio:
                         break
             except:
                 pass
+        if self.cap["Title"]:
+            for i in title:
+                i = i.title()
         return title.strip()
 
     @property
@@ -57,6 +61,9 @@ class Audio:
                         break
             except:
                 pass
+        if self.cap["Album"]:
+            for i in album:
+                i = i.title()
         return album.strip()
 
     @property
@@ -83,6 +90,9 @@ class Audio:
                     tmp[j] = tmp[j].strip()
                 fin += tmp
             artist = fin
+        if self.cap["Artist"]:
+            for i in artist:
+                i = i.title()
         return artist
 
     @property
@@ -91,7 +101,7 @@ class Audio:
 
 
 class AudioTool:
-    def __init__(self, base, suffix=["mp3", "flac", "aif"], delimiter=['/', 'ft.', 'feat.', '\\', '\\\\'], limit=8):
+    def __init__(self, base, suffix=["mp3", "flac", "aif"], delimiter=['/', 'ft.', 'feat.', '\\', '\\\\', '、'], limit=8):
         self.base = base.strip("/\\")
         self.suffix = suffix
         self.delimiter = delimiter
@@ -102,15 +112,18 @@ class AudioTool:
     def fjoin(self, dir, name):
         return self.base + "\\" + dir + "\\" + name
 
+    def fstd(self, string):
+        return string.replace('/', '／').replace(':',
+                                                '：').replace("\"", '\'').replace('*', '＊')
+
     def sed(self, au):
-        dirname = " - ".join(list(filter(None,
-                             [', '.join(self.artists[au.Album]), au.Album])))
+        dirname = self.fstd(" - ".join(list(filter(None,
+                                                   [', '.join(self.artists[au.Album]), au.Album]))))
 
         fname = au.FileName
         lrcname = fname + '.lrc'
         fname += os.path.splitext(au.path)[-1]
-        fname = fname.replace('/', '／').replace(':',
-                                                '：').replace("\"", '\'').replace('*', '＊')
+        fname = self.fstd(fname)
 
         if dirname not in os.listdir():
             try:
@@ -123,7 +136,7 @@ class AudioTool:
         try:
             os.rename(au.path, au.dir + "\\" + fname)
             # print('Successfully Renamed ' + au.path +
-                #   ' as ' + au.dir + "\\" + fname)
+            #   ' as ' + au.dir + "\\" + fname)
         except Exception as e:
             print('Unexpected Error Occurred While Renaming File: ' + au.path)
             print(e)
