@@ -132,23 +132,23 @@ class AUDIO:
             'YEAR': ('TDRC', True, ("str")),
             'TRACK': ('TRCK', True, ("str")),
             'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
+            # 'COMMENT': ('COMM', True, ("str")),
             'ALBUMARTIST': ('TPE2', True, ("str")),
             'COMPOSER': ('TCOM', True, ("str")),
             'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
+            'ID3': False
         },
         "aiff": {
-            'TITLE': ('title', True, ("str")),
-            'ARTIST': ('artist', True, ("str")),
-            'ALBUM': ('album', True, ("str")),
-            'YEAR': ('date', True, ("str")),
-            'TRACK': ('tracknumber', True, ("str")),
-            'GENRE': ('genre', True, ("str")),
-            # 'COMMENT': ('comment', True, ("str")),
-            'ALBUMARTIST': ('albumartist', True, ("str")),
-            'COMPOSER': ('composer', True, ("str")),
-            'DISCNUMBER': ('discnumber', True, ("str")),
+            'TITLE': ('TIT2', True, ("str")),
+            'ARTIST': ('TPE1', True, ("str")),
+            'ALBUM': ('TALB', True, ("str")),
+            'YEAR': ('TDRC', True, ("str")),
+            'TRACK': ('TRCK', True, ("str")),
+            'GENRE': ('TCON', True, ("str")),
+            # 'COMMENT': ('COMM', True, ("str")),
+            'ALBUMARTIST': ('TPE2', True, ("str")),
+            'COMPOSER': ('TCOM', True, ("str")),
+            'DISCNUMBER': ('TPOS', True, ("str")),
             'ID3': False
         },
         "aif": {
@@ -244,21 +244,24 @@ class AUDIO:
                              " is unacceptable.")
         try:
             self.Audio[C[0]] = Value
+            self.Audio.save()
         except Exception as e:
             if "TypeError: can't concat str to bytes" in repr(e):
                 if isinstance(Value, list):
                     for i in Value:
                         self.Audio[C[0]] = [i.encode() for i in Value]
+                        self.Audio.save()
                 elif isinstance(Value, str):
                     self.Audio[C[0]] = Value.encode()
+                    self.Audio.save()
             elif "not a Frame instance" in repr(e):
                 self.Audio[C[0]] = mutagen.id3.TextFrame(
                     encoding=3,
                     text=Value
                 )
+                self.Audio.save()
             else:
                 raise RuntimeError("Unexpected Error")
-        self.Audio.save()
 
     def __id3getter__(self, TAG):
         EI = EasyID3(self.Path)
@@ -385,7 +388,7 @@ class AUDIO:
     @property
     def DICT(self):
         r = {}
-        for i in ['TITLE,''ARTIST','ALBUM','YEAR','TRACK','GENRE','COMMENT','ALBUMARTIST','COMPOSER','DISCNUMBER']:
+        for i in ['TITLE','ARTIST','ALBUM','YEAR','TRACK','GENRE','COMMENT','ALBUMARTIST','COMPOSER','DISCNUMBER']:
             try:
                 r[i]=getattr(self,i)
             except Exception as e:
