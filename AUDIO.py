@@ -1,6 +1,7 @@
 import mutagen
-from mutagen.easyid3 import EasyID3
-from mutagen.id3 import ID3
+# from mutagen.easyid3 import EasyID3
+import importlib
+from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TRCK, TCON, COMM, TPE2, TCOM, TPOS
 
 
 class AUDIO:
@@ -100,16 +101,16 @@ class AUDIO:
             'ID3': False
         },
         "mp3": {
-            'TITLE': ('title', True, ("str")),
-            'ARTIST': ('artist', True, ("str")),
-            'ALBUM': ('album', True, ("str")),
-            'YEAR': ('date', True, ("str")),
-            'TRACK': ('tracknumber', True, ("str")),
-            'GENRE': ('genre', True, ("str")),
-            # 'COMMENT': ('comment', True, ("str")),
-            'ALBUMARTIST': ('albumartist', True, ("str")),
-            'COMPOSER': ('composer', True, ("str")),
-            'DISCNUMBER': ('discnumber', True, ("str")),
+            'TITLE': ('TIT2', True, ("str")),
+            'ARTIST': ('TPE1', True, ("str")),
+            'ALBUM': ('TALB', True, ("str")),
+            'YEAR': ('TDRC', True, ("str")),
+            'TRACK': ('TRCK', True, ("str")),
+            'GENRE': ('TCON', True, ("str")),
+            'COMMENT': ('COMM', True, ("str")),
+            'ALBUMARTIST': ('TPE2', True, ("str")),
+            'COMPOSER': ('TCOM', True, ("str")),
+            'DISCNUMBER': ('TPOS', True, ("str")),
             'ID3': True
         },
         "dsf": {
@@ -123,7 +124,33 @@ class AUDIO:
             'ALBUMARTIST': ('TPE2', True, ("str")),
             'COMPOSER': ('TCOM', True, ("str")),
             'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': False
+            'ID3': True
+        },
+        "mp3": {
+            'TITLE': ('TIT2', True, ("str")),
+            'ARTIST': ('TPE1', True, ("str")),
+            'ALBUM': ('TALB', True, ("str")),
+            'YEAR': ('TDRC', True, ("str")),
+            'TRACK': ('TRCK', True, ("str")),
+            'GENRE': ('TCON', True, ("str")),
+            'COMMENT': ('COMM', True, ("str")),
+            'ALBUMARTIST': ('TPE2', True, ("str")),
+            'COMPOSER': ('TCOM', True, ("str")),
+            'DISCNUMBER': ('TPOS', True, ("str")),
+            'ID3': True
+        },
+        "aac": {
+            'TITLE': ('TIT2', True, ("str")),
+            'ARTIST': ('TPE1', True, ("str")),
+            'ALBUM': ('TALB', True, ("str")),
+            'YEAR': ('TDRC', True, ("str")),
+            'TRACK': ('TRCK', True, ("str")),
+            'GENRE': ('TCON', True, ("str")),
+            'COMMENT': ('COMM', True, ("str")),
+            'ALBUMARTIST': ('TPE2', True, ("str")),
+            'COMPOSER': ('TCOM', True, ("str")),
+            'DISCNUMBER': ('TPOS', True, ("str")),
+            'ID3': True
         },
         "wav": {
             'TITLE': ('TIT2', True, ("str")),
@@ -132,11 +159,11 @@ class AUDIO:
             'YEAR': ('TDRC', True, ("str")),
             'TRACK': ('TRCK', True, ("str")),
             'GENRE': ('TCON', True, ("str")),
-            # 'COMMENT': ('COMM', True, ("str")),
+            'COMMENT': ('COMM', True, ("str")),
             'ALBUMARTIST': ('TPE2', True, ("str")),
             'COMPOSER': ('TCOM', True, ("str")),
             'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': False
+            'ID3': True
         },
         "aiff": {
             'TITLE': ('TIT2', True, ("str")),
@@ -145,24 +172,24 @@ class AUDIO:
             'YEAR': ('TDRC', True, ("str")),
             'TRACK': ('TRCK', True, ("str")),
             'GENRE': ('TCON', True, ("str")),
-            # 'COMMENT': ('COMM', True, ("str")),
+            'COMMENT': ('COMM', True, ("str")),
             'ALBUMARTIST': ('TPE2', True, ("str")),
             'COMPOSER': ('TCOM', True, ("str")),
             'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': False
+            'ID3': True
         },
         "aif": {
-            'TITLE': ('title', True, ("str")),
-            'ARTIST': ('artist', True, ("str")),
-            'ALBUM': ('album', True, ("str")),
-            'YEAR': ('date', True, ("str")),
-            'TRACK': ('tracknumber', True, ("str")),
-            'GENRE': ('genre', True, ("str")),
-            # 'COMMENT': ('comment', True, ("str")),
-            'ALBUMARTIST': ('albumartist', True, ("str")),
-            'COMPOSER': ('composer', True, ("str")),
-            'DISCNUMBER': ('discnumber', True, ("str")),
-            'ID3': False
+            'TITLE': ('TIT2', True, ("str")),
+            'ARTIST': ('TPE1', True, ("str")),
+            'ALBUM': ('TALB', True, ("str")),
+            'YEAR': ('TDRC', True, ("str")),
+            'TRACK': ('TRCK', True, ("str")),
+            'GENRE': ('TCON', True, ("str")),
+            'COMMENT': ('COMM', True, ("str")),
+            'ALBUMARTIST': ('TPE2', True, ("str")),
+            'COMPOSER': ('TCOM', True, ("str")),
+            'DISCNUMBER': ('TPOS', True, ("str")),
+            'ID3': True
         },
         "flac": {
             'TITLE': ('TITLE', True, ("str")),
@@ -204,15 +231,34 @@ class AUDIO:
             'ID3': False
         }
     }
+    ID3D = {
+        'TITLE': TIT2,
+        'ARTIST': TPE1,
+        'ALBUM': TALB,
+        'YEAR': TDRC,
+        'TRACK': TRCK,
+        'GENRE': TCON,
+        'COMMENT': COMM,
+        'ALBUMARTIST': TPE2,
+        'COMPOSER': TCOM,
+        'DISCNUMBER': TPOS
+    }
 
     def __init__(self, path):
         self.Path = path
         self.Audio = mutagen.File(path)
+        self.FileType = path[path.rfind(".") + 1:].lower()
         try:
-            self.Config = self.Config[path[path.rfind(".") + 1:].lower()]
+            self.Config = self.Config[self.FileType]
         except:
             raise ValueError(
                 "Filetype " + self.Audio.mime[0].split("/")[1] + " not supported")
+
+    def importID3(self, Type):
+        if Type == "wav":
+            Type = "wave"
+        ID3M = importlib.import_module("mutagen." + Type.lower())
+        return getattr(ID3M, Type.upper())
 
     def __generalgetter__(self, TAG):
         C = self.Config[TAG]
@@ -264,16 +310,20 @@ class AUDIO:
                 raise RuntimeError("Unexpected Error")
 
     def __id3getter__(self, TAG):
-        EI = EasyID3(self.Path)
         C = self.Config[TAG]
-        return EI[C[0]]
+        ID3C = self.importID3(self.FileType)
+        ID3 = ID3C(self.Path)
+        return ID3[C[0]].text
 
     def __id3setter__(self, TAG, Value):
-        if not TAG == "COMMENT":
-            EI = EasyID3(self.Path)
-            C = self.Config[TAG]
-            EI[C[0]] = Value
-            EI.save()
+        C = self.Config[TAG]
+        ID3C = self.importID3(self.FileType)
+        ID3 = ID3C(self.Path)
+        ID3[C[0]] = self.ID3D[TAG](
+            encoding=3,
+            text=Value
+        )
+        ID3.save()
 
     @property
     def TITLE(self):
@@ -388,9 +438,9 @@ class AUDIO:
     @property
     def DICT(self):
         r = {}
-        for i in ['TITLE','ARTIST','ALBUM','YEAR','TRACK','GENRE','COMMENT','ALBUMARTIST','COMPOSER','DISCNUMBER']:
+        for i in ['TITLE', 'ARTIST', 'ALBUM', 'YEAR', 'TRACK', 'GENRE', 'COMMENT', 'ALBUMARTIST', 'COMPOSER', 'DISCNUMBER']:
             try:
-                r[i]=getattr(self,i)
+                r[i] = getattr(self, i)
             except Exception as e:
                 pass
         return r
