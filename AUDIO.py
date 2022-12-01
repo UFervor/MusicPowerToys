@@ -5,11 +5,29 @@ from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TRCK, TCON, COMM, TPE2, TCOM, TP
 
 
 class AUDIO:
-    # 原生列表：True
-    # 字符串分割：字符
-    # 不支持：False
+    # List Supported：True
+    # String：Char
+    # No List Supported：False
+    MAP = {
+        "ape": "APEv2",
+        "wv": "APEv2",
+        "mpc": "APEv2",
+        "m4a": "MP4",
+        "m4b": "MP4",
+        "m4v": "MP4",
+        "mp4": "MP4",
+        "mp3": "ID3",
+        "dsf": "ID3",
+        "aac": "ID3",
+        "wav": "ID3",
+        "aiff": "ID3",
+        "aif": "ID3",
+        "flac": "FLAC",
+        "opus": "Vorbis Comment",
+        "ogg": "Vorbis Comment"
+    }
     Config = {
-        "ape": {
+        "APEv2": {
             'TITLE': ('TITLE', "\x00", ("str")),
             'ARTIST': ('ARTIST', "\x00", ("str")),
             'ALBUM': ('ALBUM', "\x00", ("str")),
@@ -22,33 +40,7 @@ class AUDIO:
             'DISCNUMBER': ('DISCNUMBER', "\x00", ("str")),
             'ID3': False
         },
-        "wv": {
-            'TITLE': ('TITLE', "\x00", ("str")),
-            'ARTIST': ('ARTIST', "\x00", ("str")),
-            'ALBUM': ('ALBUM', "\x00", ("str")),
-            'YEAR': ('YEAR', "\x00", ("str")),
-            'TRACK': ('TRACK', "\x00", ("str")),
-            'GENRE': ('GENRE', "\x00", ("str")),
-            'COMMENT': ('COMMENT', "\x00", ("str")),
-            'ALBUMARTIST': ('ALBUMARTIST', "\x00", ("str")),
-            'COMPOSER': ('COMPOSER', "\x00", ("str")),
-            'DISCNUMBER': ('DISCNUMBER', "\x00", ("str")),
-            'ID3': False
-        },
-        "mpc": {
-            'TITLE': ('TITLE', "\x00", ("str")),
-            'ARTIST': ('ARTIST', "\x00", ("str")),
-            'ALBUM': ('ALBUM', "\x00", ("str")),
-            'YEAR': ('YEAR', "\x00", ("str")),
-            'TRACK': ('TRACK', "\x00", ("str")),
-            'GENRE': ('GENRE', "\x00", ("str")),
-            'COMMENT': ('COMMENT', "\x00", ("str")),
-            'ALBUMARTIST': ('ALBUMARTIST', "\x00", ("str")),
-            'COMPOSER': ('COMPOSER', "\x00", ("str")),
-            'DISCNUMBER': ('DISCNUMBER', "\x00", ("str")),
-            'ID3': False
-        },
-        "m4a": {
+        "MP4": {
             'TITLE': ('©nam', True, ("str")),
             'ARTIST': ('©ART', True, ("str")),
             'ALBUM': ('©alb', True, ("str")),
@@ -61,46 +53,7 @@ class AUDIO:
             'DISCNUMBER': ('----:com.apple.iTunes:disc', False, ("str")),
             'ID3': False
         },
-        "m4b": {
-            'TITLE': ('©nam', True, ("str")),
-            'ARTIST': ('©ART', True, ("str")),
-            'ALBUM': ('©alb', True, ("str")),
-            'YEAR': ('©day', True, ("str")),
-            'TRACK': ('----:com.apple.iTunes:track', False, ("str")),
-            'GENRE': ('----:com.apple.iTunes:GENRE', True, ("str")),
-            'COMMENT': ('©cmt', True, ("str")),
-            'ALBUMARTIST': ('aART', True, ("str")),
-            'COMPOSER': ('©wrt', True, ("str")),
-            'DISCNUMBER': ('----:com.apple.iTunes:disc', False, ("str")),
-            'ID3': False
-        },
-        "m4v": {
-            'TITLE': ('©nam', True, ("str")),
-            'ARTIST': ('©ART', True, ("str")),
-            'ALBUM': ('©alb', True, ("str")),
-            'YEAR': ('©day', True, ("str")),
-            'TRACK': ('----:com.apple.iTunes:track', False, ("str")),
-            'GENRE': ('----:com.apple.iTunes:GENRE', True, ("str")),
-            'COMMENT': ('©cmt', True, ("str")),
-            'ALBUMARTIST': ('aART', True, ("str")),
-            'COMPOSER': ('©wrt', True, ("str")),
-            'DISCNUMBER': ('----:com.apple.iTunes:disc', False, ("str")),
-            'ID3': False
-        },
-        "mp4": {
-            'TITLE': ('©nam', True, ("str")),
-            'ARTIST': ('©ART', True, ("str")),
-            'ALBUM': ('©alb', True, ("str")),
-            'YEAR': ('©day', True, ("str")),
-            'TRACK': ('----:com.apple.iTunes:track', False, ("str")),
-            'GENRE': ('----:com.apple.iTunes:GENRE', True, ("str")),
-            'COMMENT': ('©cmt', True, ("str")),
-            'ALBUMARTIST': ('aART', True, ("str")),
-            'COMPOSER': ('©wrt', True, ("str")),
-            'DISCNUMBER': ('----:com.apple.iTunes:disc', False, ("str")),
-            'ID3': False
-        },
-        "mp3": {
+        "ID3": {
             'TITLE': ('TIT2', True, ("str")),
             'ARTIST': ('TPE1', True, ("str")),
             'ALBUM': ('TALB', True, ("str")),
@@ -113,85 +66,7 @@ class AUDIO:
             'DISCNUMBER': ('TPOS', True, ("str")),
             'ID3': True
         },
-        "dsf": {
-            'TITLE': ('TIT2', True, ("str")),
-            'ARTIST': ('TPE1', True, ("str")),
-            'ALBUM': ('TALB', True, ("str")),
-            'YEAR': ('TDRC', True, ("str")),
-            'TRACK': ('TRCK', True, ("str")),
-            'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
-            'ALBUMARTIST': ('TPE2', True, ("str")),
-            'COMPOSER': ('TCOM', True, ("str")),
-            'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
-        },
-        "mp3": {
-            'TITLE': ('TIT2', True, ("str")),
-            'ARTIST': ('TPE1', True, ("str")),
-            'ALBUM': ('TALB', True, ("str")),
-            'YEAR': ('TDRC', True, ("str")),
-            'TRACK': ('TRCK', True, ("str")),
-            'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
-            'ALBUMARTIST': ('TPE2', True, ("str")),
-            'COMPOSER': ('TCOM', True, ("str")),
-            'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
-        },
-        "aac": {
-            'TITLE': ('TIT2', True, ("str")),
-            'ARTIST': ('TPE1', True, ("str")),
-            'ALBUM': ('TALB', True, ("str")),
-            'YEAR': ('TDRC', True, ("str")),
-            'TRACK': ('TRCK', True, ("str")),
-            'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
-            'ALBUMARTIST': ('TPE2', True, ("str")),
-            'COMPOSER': ('TCOM', True, ("str")),
-            'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
-        },
-        "wav": {
-            'TITLE': ('TIT2', True, ("str")),
-            'ARTIST': ('TPE1', True, ("str")),
-            'ALBUM': ('TALB', True, ("str")),
-            'YEAR': ('TDRC', True, ("str")),
-            'TRACK': ('TRCK', True, ("str")),
-            'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
-            'ALBUMARTIST': ('TPE2', True, ("str")),
-            'COMPOSER': ('TCOM', True, ("str")),
-            'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
-        },
-        "aiff": {
-            'TITLE': ('TIT2', True, ("str")),
-            'ARTIST': ('TPE1', True, ("str")),
-            'ALBUM': ('TALB', True, ("str")),
-            'YEAR': ('TDRC', True, ("str")),
-            'TRACK': ('TRCK', True, ("str")),
-            'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
-            'ALBUMARTIST': ('TPE2', True, ("str")),
-            'COMPOSER': ('TCOM', True, ("str")),
-            'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
-        },
-        "aif": {
-            'TITLE': ('TIT2', True, ("str")),
-            'ARTIST': ('TPE1', True, ("str")),
-            'ALBUM': ('TALB', True, ("str")),
-            'YEAR': ('TDRC', True, ("str")),
-            'TRACK': ('TRCK', True, ("str")),
-            'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
-            'ALBUMARTIST': ('TPE2', True, ("str")),
-            'COMPOSER': ('TCOM', True, ("str")),
-            'DISCNUMBER': ('TPOS', True, ("str")),
-            'ID3': True
-        },
-        "flac": {
+        "FLAC": {
             'TITLE': ('TITLE', True, ("str")),
             'ARTIST': ('ARTIST', True, ("str")),
             'ALBUM': ('ALBUM', True, ("str")),
@@ -204,20 +79,7 @@ class AUDIO:
             'DISCNUMBER': ('DISCNUMBER', True, ("str")),
             'ID3': False
         },
-        "opus": {
-            'TITLE': ('TITLE', True, ("str")),
-            'ARTIST': ('ARTIST', True, ("str")),
-            'ALBUM': ('ALBUM', True, ("str")),
-            'YEAR': ('DATE', True, ("str")),
-            'TRACK': ('TRACKNUMBER', True, ("str")),
-            'GENRE': ('GENRE', True, ("str")),
-            'COMMENT': ('COMMENT', True, ("str")),
-            'ALBUMARTIST': ('ALBUMARTIST', True, ("str")),
-            'COMPOSER': ('COMPOSER', True, ("str")),
-            'DISCNUMBER': ('DISCNUMBER', True, ("str")),
-            'ID3': False
-        },
-        "ogg": {
+        "Vorbis Comment": {
             'TITLE': ('TITLE', True, ("str")),
             'ARTIST': ('ARTIST', True, ("str")),
             'ALBUM': ('ALBUM', True, ("str")),
@@ -249,7 +111,7 @@ class AUDIO:
         self.Audio = mutagen.File(path)
         self.FileType = path[path.rfind(".") + 1:].lower()
         try:
-            self.Config = self.Config[self.FileType]
+            self.Config = self.Config[self.MAP[self.FileType]]
         except:
             raise ValueError(
                 "Filetype " + self.Audio.mime[0].split("/")[1] + " not supported")
