@@ -9,11 +9,28 @@ class EAUDIO(AUDIO):
         self.delimiter = delimiter
         self.dir = os.path.dirname(path)
         self.CAPARTIST = CAPARTIST
-        try:
-            audio = AUDIO(path)
-            audio.ARTIST = self.ARTIST
-        except:
-            pass
+    
+    def FORMAT(self, ARTIST=True, ALBUMARTIST=True, COMPOSER=True):
+        if ARTIST:
+            self.ARTIST = self.SEP(self.ARTIST)
+        if ALBUMARTIST:
+            self.ALBUMARTIST = self.SEP(self.ALBUMARTIST)
+        if COMPOSER:
+            self.COMPOSER = self.SEP(self.COMPOSER)
+
+    def SEP(self, Values):
+        r = Values
+        for i in self.delimiter:
+            fin = []
+            for j in r:
+                tmp = list(filter(None, j.split(i)))
+                tmp = [i.strip() for i in tmp]
+                fin += tmp
+            r = fin
+        if self.CAPARTIST:
+            for i in r:
+                i = i.title()
+        return r
 
     @property
     def TITLE(self):
@@ -33,21 +50,7 @@ class EAUDIO(AUDIO):
 
     @property
     def ARTIST(self):
-        r = super().ARTIST
-        for i in self.delimiter:
-            fin = []
-            for j in r:
-                tmp = j.split(i)
-                while '' in tmp:
-                    tmp.remove('')
-                for j in range(0, len(tmp)):
-                    tmp[j] = tmp[j].strip()
-                fin += tmp
-            r = fin
-        if self.CAPARTIST:
-            for i in r:
-                i = i.title()
-        return r
+        return super().ARTIST
 
     @ARTIST.setter
     def ARTIST(self, Value):
@@ -87,7 +90,7 @@ class EAUDIO(AUDIO):
 
     @property
     def ALBUMARTIST(self):
-        return super().ALBUMARTIST[0]
+        return super().ALBUMARTIST
 
     @ALBUMARTIST.setter
     def ALBUMARTIST(self, Value):
@@ -95,7 +98,7 @@ class EAUDIO(AUDIO):
 
     @property
     def COMPOSER(self):
-        return super().COMPOSER[0]
+        return super().COMPOSER
 
     @COMPOSER.setter
     def COMPOSER(self, Value):
