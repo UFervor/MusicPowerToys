@@ -330,7 +330,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("TITLE")
         except:
-            return None
+            return ""
 
     @TITLE.setter
     def TITLE(self, Value):
@@ -341,10 +341,10 @@ class AUDIO:
         try:
             return self.__generalgetter__("ALBUM")
         except:
-            return None
+            return ""
 
     @ALBUM.setter
-    def TITLE(self, Value):
+    def ALBUM(self, Value):
         self.__generalsetter__("ALBUM", Value)
 
     @property
@@ -352,7 +352,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("ARTIST")
         except:
-            return None
+            return ""
 
     @ARTIST.setter
     def ARTIST(self, Value):
@@ -363,7 +363,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("YEAR")
         except:
-            return None
+            return ""
 
     @YEAR.setter
     def YEAR(self, Value):
@@ -374,7 +374,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("TRACK")
         except:
-            return None
+            return ""
 
     @TRACK.setter
     def TRACK(self, Value):
@@ -385,7 +385,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("GENRE")
         except:
-            return None
+            return ""
 
     @GENRE.setter
     def GENRE(self, Value):
@@ -396,7 +396,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("COMMENT")
         except:
-            return None
+            return ""
 
     @COMMENT.setter
     def COMMENT(self, Value):
@@ -407,7 +407,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("ALBUMARTIST")
         except:
-            return None
+            return ""
 
     @ALBUMARTIST.setter
     def ALBUMARTIST(self, Value):
@@ -418,7 +418,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("COMPOSER")
         except:
-            return None
+            return ""
 
     @COMPOSER.setter
     def COMPOSER(self, Value):
@@ -429,7 +429,7 @@ class AUDIO:
         try:
             return self.__generalgetter__("DISCNUMBER")
         except:
-            return None
+            return ""
 
     @DISCNUMBER.setter
     def DISCNUMBER(self, Value):
@@ -444,3 +444,8 @@ class AUDIO:
             except Exception as e:
                 pass
         return r
+
+    # @DICT.setter
+    # def DICT(self, Value):
+    #     for i in Value.keys():
+    #         getattr(self, i) = Value[i]
