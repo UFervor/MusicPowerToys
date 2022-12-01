@@ -1,7 +1,7 @@
 import mutagen
 # from mutagen.easyid3 import EasyID3
 import importlib
-from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TRCK, TCON, COMM, TPE2, TCOM, TPOS
+from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TRCK, TCON, COMM, TPE2, TCOM, TPOS, TXXX, USLT
 
 
 class AUDIO:
@@ -38,6 +38,7 @@ class AUDIO:
             'ALBUMARTIST': ('ALBUMARTIST', "\x00", ("str")),
             'COMPOSER': ('COMPOSER', "\x00", ("str")),
             'DISCNUMBER': ('DISCNUMBER', "\x00", ("str")),
+            'LYRICS': ('LYRICS', "\x00", ("str")),
             'ID3': False
         },
         "MP4": {
@@ -51,6 +52,7 @@ class AUDIO:
             'ALBUMARTIST': ('aART', True, ("str")),
             'COMPOSER': ('©wrt', True, ("str")),
             'DISCNUMBER': ('----:com.apple.iTunes:disc', False, ("str")),
+            'LYRICS': ('©lyr', True, ("str")),
             'ID3': False
         },
         "ID3": {
@@ -60,10 +62,11 @@ class AUDIO:
             'YEAR': ('TDRC', True, ("str")),
             'TRACK': ('TRCK', True, ("str")),
             'GENRE': ('TCON', True, ("str")),
-            'COMMENT': ('COMM', True, ("str")),
+            'COMMENT': ('TXXX:COMMENT', True, ("str")),
             'ALBUMARTIST': ('TPE2', True, ("str")),
             'COMPOSER': ('TCOM', True, ("str")),
             'DISCNUMBER': ('TPOS', True, ("str")),
+            'LYRICS': ('TXXX:LYRICS', True, ("str")),
             'ID3': True
         },
         "FLAC": {
@@ -77,6 +80,7 @@ class AUDIO:
             'ALBUMARTIST': ('ALBUMARTIST', True, ("str")),
             'COMPOSER': ('COMPOSER', True, ("str")),
             'DISCNUMBER': ('DISCNUMBER', True, ("str")),
+            'LYRICS': ('LYRICS', True, ("str")),
             'ID3': False
         },
         "Vorbis Comment": {
@@ -90,6 +94,7 @@ class AUDIO:
             'ALBUMARTIST': ('ALBUMARTIST', True, ("str")),
             'COMPOSER': ('COMPOSER', True, ("str")),
             'DISCNUMBER': ('DISCNUMBER', True, ("str")),
+            'LYRICS': ('LYRICS', True, ("str")),
             'ID3': False
         }
     }
@@ -100,10 +105,11 @@ class AUDIO:
         'YEAR': TDRC,
         'TRACK': TRCK,
         'GENRE': TCON,
-        'COMMENT': COMM,
+        'COMMENT': TXXX,
         'ALBUMARTIST': TPE2,
         'COMPOSER': TCOM,
-        'DISCNUMBER': TPOS
+        'DISCNUMBER': TPOS,
+        'LYRICS': TXXX
     }
 
     def __init__(self, path):
@@ -183,10 +189,25 @@ class AUDIO:
         C = self.Config[TAG]
         ID3C = self.importID3(self.FileType)
         ID3 = ID3C(self.Path)
-        ID3[C[0]] = self.ID3D[TAG](
-            encoding=3,
-            text=Value
-        )
+        if TAG == "COMMENT":
+            ID3.tags.setall('COMM', [])
+            ID3[C[0]] = COMM(
+                encoding=3,
+                text=Value
+            )
+        if C[0].startswith("TXXX"):
+            ID3.tags.setall(C[0], [])
+            ID3[C[0]] = TXXX(
+                encoding=3,
+                text=Value,
+                desc=TAG
+            )
+        else:
+            ID3.tags.setall(C[0], [])
+            ID3[C[0]] = self.ID3D[TAG](
+                encoding=3,
+                text=Value
+            )
         ID3.save()
 
     @property
@@ -298,6 +319,17 @@ class AUDIO:
     @DISCNUMBER.setter
     def DISCNUMBER(self, Value):
         self.__generalsetter__("DISCNUMBER", Value)
+
+    @property
+    def LYRICS(self):
+        try:
+            return self.__generalgetter__("LYRICS")
+        except:
+            return ""
+
+    @LYRICS.setter
+    def LYRICS(self, Value):
+        self.__generalsetter__("LYRICS", Value)
 
     @property
     def DICT(self):
