@@ -257,6 +257,8 @@ class AUDIO:
     def importID3(self, Type):
         if Type == "wav":
             Type = "wave"
+        elif Type == "aif":
+            Type = "aiff"
         ID3M = importlib.import_module("mutagen." + Type.lower())
         return getattr(ID3M, Type.upper())
 
