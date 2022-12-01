@@ -4,15 +4,15 @@
 
 |Filetype|music-tag|Mp3tag|MusicPowerToys|
 |---|---|---|---|
-|aac (ID3 Variant)|:white_check_mark:|:white_check_mark:|:x: (DEVELOPING)|
-|aif / aiff (ID3 Variant)|:white_check_mark:|:white_check_mark:|:x: (DEVELOPING)|
-|dsf (ID3 Variant)|:white_check_mark:|:white_check_mark:|:x: (DEVELOPING)|
+|aac (ID3 Variant)|:white_check_mark:|:white_check_mark:|:white_check_mark: (TESTING)|
+|aif / aiff (ID3 Variant)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
+|dsf (ID3 Variant)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |flac (FLAC)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |m4a (MP4)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
-|mp3 (ID3)|:white_check_mark:|:white_check_mark:|:white_check_mark: (TESTING)|
+|mp3 (ID3)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |ogg (Vorbis Comment)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |opus (Vorbis Comment)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
-|wav (ID3 Variant)|:white_check_mark:|:white_check_mark:|:x: (DEVELOPING)|
+|wav (ID3 Variant)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |wv (APEv2)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |mp4 (MP4)|:x:|:white_check_mark:|:white_check_mark:|
 |m4b (MP4)|:x:|:white_check_mark:|:white_check_mark:|
