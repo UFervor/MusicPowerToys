@@ -21,3 +21,5 @@
 |ape (APEv2)|:x:|:white_check_mark:|:white_check_mark:|
 
 We are trying our best to support ID3 format, but it may take a lot of time.
+* The program can't read some year or date values.
+* The program can't write mutiple commennt values and may have problems reading it, too.
