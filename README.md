@@ -1,4 +1,6 @@
 # MusicPowerTools
+## Simple interface to edit audio file metadata.
+
 |Symbol|Statement|
 |---|---|
 |:x:|Not Supported But On List|
