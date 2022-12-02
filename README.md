@@ -35,14 +35,54 @@
 |Vorbis Comment|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |FLAC|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 
-## Class
-`class AUDIO`  
-Directly access audio files.
+# Document
+## AUDIO.py
+### `class AUDIO`
+* Each tag mentioned above in the table is a modifiable property of `AUDIO`.
+* You can modify these tags simply by modifying the value of these properties.
+
+Construction method
+|Args|Function|
+|---|---|
+|path|Specify the path|
+
+* Almost every tag type accepts a list. The unsupported ones are below in the table.
+
+|Unsupported|
+|---|
+|None|
+
+Usage:
 ```Python
-au = AUDIO(Path) #Instantiation
-au.ARTIST = ["A", "B"] #Modify tag values Directly with a list, string, and int
+au = AUDIO(path) #Instantiation
+au.ARTIST = ["A", "B"] #Modify tag values Directly with a list, string, or int
 print(au.TITLE)
 ```
 
-<!-- `class EAUDIO`  
-Subclass of `AUDIO` -->
+### `class EAUDIO`
+* `EAUDIO` is a subclass of `AUDIO`.
+
+Construction method
+|Args|Function|
+|---|---|
+|path|Specify the path|
+|delimiter (Accept a list)|A list that contains delimiters used in `FORMAT()` function|
+|CAPARTIST = True (Default)|Determines whether to title each artist name in `FORMAT()` function|
+
+`EAUDIO` is almost the same as `AUDIO` class, but `EAUDIO` class offer more APIs and has added some restriction to tag values.  
+Only three tag types supports list in `EAUDIO`: 
+
+|Tag Types accept a list|
+|---|
+|ARTIST|
+|ALBUMARTIST|
+|COMPOSER|
+
+If non-list-supported tag types are assigned with list type values, a ValueError exception will be raised.
+
+Besides, `EAUDIO` class also provides additional APIs.
+
+|APIs|Args|Function|
+|---|---|---|
+|FORMAT|ARTIST = True (Default, which means the program will try to process the ARTIST Tag Field), ALBUMARTIST = True, COMPOSER = True|Automatically split artist fields joined with a joiner into a list|
+|ADDLYRICS|FO(Accepts file-like object) or String(Accepts a string)|Add lyrics to audio|
