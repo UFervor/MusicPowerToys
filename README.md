@@ -78,7 +78,7 @@ Only three tag types supports list in `EAUDIO`:
 |ALBUMARTIST|
 |COMPOSER|
 
-If non-list-supported tag types are assigned with list type values, a ValueError exception will be raised.
+If non-list-supported tag types are assigned with list type values, a `ValueError()` exception will be raised.
 
 Besides, `EAUDIO` class also provides additional APIs.
 
