@@ -1,7 +1,8 @@
 import os
+import re
 import importlib
 import mutagen
-from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TRCK, TCON, COMM, TPE2, TCOM, TPOS, TXXX, USLT
+from mutagen.id3 import TIT2, TPE1, TALB, TDRC, TRCK, TCON, COMM, TPE2, TCOM, TPOS, TXXX, USLT, SYLT
 
 
 class AUDIO:
@@ -179,6 +180,12 @@ class AUDIO:
             else:
                 raise RuntimeError("Unexpected Error")
 
+    def Synchronised(self, FL):
+        for i in FL:
+            if re.match("\[[0-9]+:[0-9]{2}\.[0-9]{2,3}\]", i):
+                return True
+        return False
+
     def __id3getter__(self, TAG):
         C = self.Config[TAG]
         ID3C = self.importID3(self.FileType)
@@ -191,10 +198,34 @@ class AUDIO:
         ID3 = ID3C(self.Path)
         if TAG == "COMMENT":
             ID3.tags.setall('COMM', [])
-            ID3[C[0]] = COMM(
+            ID3['COMM'] = COMM(
                 encoding=3,
                 text=Value
             )
+        # elif TAG == "LYRICS":
+        #     tmp = {"Synchronised": [], "Unsychronised": []}
+        #     try:
+        #         Value = list(Value)
+        #     except:
+        #         Value = [Value]
+        #     for i in Value:
+        #         if self.Synchronised(i.split("\n")):
+        #             tmp["Synchronised"].append(i)
+        #         else:
+        #             tmp["Unsychronised"].append(i)
+        #     if tmp["Synchronised"]:
+        #         ID3.tags.setall("SYLT", [])
+        #         ID3["SYLT"] = SYLT(
+        #             encoding=3,
+        #             text=tmp["Synchronised"],
+        #         )
+        #     if tmp["Unsychronised"]:
+        #         ID3.tags.setall("USLT", [])
+        #         ID3["USLT"] = USLT(
+        #             encoding=3,
+        #             text=tmp["Unsychronised"],
+        #         )
+
         if C[0].startswith("TXXX"):
             ID3.tags.setall(C[0], [])
             ID3[C[0]] = TXXX(
