@@ -1,16 +1,16 @@
 # MusicPowerTools
 ## Simple interface to edit audio file metadata.
 
+## Install dependencies
+`pip3 install mutagen`
+
+## File Type Support
 |Symbol|Statement|
 |---|---|
 |:x:|Not Supported But On List|
 |🔘|Not Fully Supported / Testing|
 |:white_check_mark:|Supported|
 
-## Install dependencies
-`pip3 install mutagen`
-
-## File Type Support
 |File Type|music-tag|Mp3tag|MusicPowerToys|
 |---|---|---|---|
 |aac (ID3 Variant)|:white_check_mark:|:white_check_mark:|🔘|
@@ -30,6 +30,12 @@
 |ape (APEv2)|:x:|:white_check_mark:|:white_check_mark:|
 
 ## Tags Support
+|Symbol|Statement|
+|---|---|
+|:x:|Not Supported But On List|
+|🔘|Not Fully Supported / Testing|
+|:white_check_mark:|Supported|
+
 |Metadata Type|TITLE|ALBUM|ARTIST|YEAR|TRACK|GENRE|COMMENT|ALBUMARTIST|COMPOSER|DISCNUMBER|LYRICS|
 |---|---|---|---|---|---|---|---|---|---|---|---|
 |ID3 / ID3 Variant|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|🔘|
@@ -38,6 +44,11 @@
 |FLAC|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 
 * List Type Support
+|Symbol|Statement|
+|---|---|
+|:x:|Not Supported|
+|🔘|Not Originally Supported|
+|:white_check_mark:|Supported|
 
 |Metadata Type|TITLE|ALBUM|ARTIST|YEAR|TRACK|GENRE|COMMENT|ALBUMARTIST|COMPOSER|DISCNUMBER|LYRICS|
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -56,12 +67,6 @@ Construction method
 |Args|Function|
 |---|---|
 |path|Specify the path|
-
-* Almost every tag type accepts a list. The unsupported ones are below in the table.
-
-|Unsupported|
-|---|
-|None|
 
 Usage:
 ```Python
