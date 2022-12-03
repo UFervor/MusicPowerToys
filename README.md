@@ -48,7 +48,7 @@
 |Symbol|Statement|
 |---|---|
 |:x:|Not Supported|
-|🔘|Not Originally Supported|
+|🔘|Not Originally Supported / Developing|
 |:white_check_mark:|Supported|
 
 |Metadata Type|TITLE|ALBUM|ARTIST|YEAR|TRACK|GENRE|COMMENT|ALBUMARTIST|COMPOSER|DISCNUMBER|LYRICS|
