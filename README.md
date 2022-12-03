@@ -13,7 +13,7 @@
 
 |File Type|music-tag|Mp3tag|MusicPowerToys|
 |---|---|---|---|
-|aac (ID3 Variant)|:white_check_mark:|:white_check_mark:|🔘|
+|aac (ID3 Variant)|:white_check_mark:|:white_check_mark:|:x:|
 |aif / aiff (ID3 Variant)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |dsf (ID3 Variant)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 |flac (FLAC)|:white_check_mark:|:white_check_mark:|:white_check_mark:|
@@ -44,6 +44,7 @@
 |FLAC|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|:white_check_mark:|
 
 * List Type Support
+
 |Symbol|Statement|
 |---|---|
 |:x:|Not Supported|
