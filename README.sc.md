@@ -1,7 +1,7 @@
 # MusicPowerTools
 ## 一个简易的音频元数据编辑器。
-* **支持 9 种（共 10 种） music-tag 支持的格式！**
-* **支持 15 种（共 28 种） Mp3tag 支持的格式！**
+* **支持 9 种（共 10 种）music-tag 支持的格式！**
+* **支持 15 种（共 28 种）Mp3tag 支持的格式！**
 * **基于 [mutagen](https://github.com/quodlibet/mutagen) 开发。**
 
 [English](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.md) | [简体中文](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.sc.md)
