@@ -87,8 +87,8 @@ print(au.TITLE)
 |参数|功能|
 |---|---|
 |path|指定路径|
-|delimiter (接受列表)|一个会在 `FORMAT()` 函数中使用的分隔符列表|
-|CAPARTIST = True (默认值)|决定是否在 `FORMAT()` 函数中将每个艺术家的名称标题化（大写每个单词的首字母）|
+|delimiter（接受列表）|一个会在 `FORMAT()` 函数中使用的分隔符列表|
+|CAPARTIST = True（默认值）|决定是否在 `FORMAT()` 函数中将每个艺术家的名称标题化（大写每个单词的首字母）|
 
 `EAUDIO` 几乎与 `AUDIO` 类相同，但是 `EAUDIO` 提供更多接口并且添加了一些属性类型的限制。  
  `EAUDIO` 中仅三个属性接受列表：
@@ -105,5 +105,5 @@ print(au.TITLE)
 
 |接口|参数|功能|
 |---|---|---|
-|FORMAT|ARTIST = True (默认值，程序会尝试处理 ARTIST 标签字段)，ALBUMARTIST = True，COMPOSER = True|自动分割用连接符连接的 ARTIST 字段|
-|ADDLYRICS|FO(接受类文件对象) 或 String(接受字符串)|为音频添加歌词|
+|FORMAT|ARTIST = True（默认值，程序会尝试处理 ARTIST 标签字段），ALBUMARTIST = True，COMPOSER = True|自动分割用连接符连接的 ARTIST 字段|
+|ADDLYRICS|FO（接受类文件对象）或 String（接受字符串）|为音频添加歌词|
