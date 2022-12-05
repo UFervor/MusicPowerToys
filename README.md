@@ -4,7 +4,7 @@
 * **We now support 15 of 28 formats that Mp3tag supports!**
 * **Based on [mutagen](https://github.com/quodlibet/mutagen).**
 
-English](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.md) [简体中文](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.sc.md)
+[English](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.md) | [简体中文](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.sc.md)
 ## Install dependencies
 `pip3 install mutagen`
 

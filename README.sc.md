@@ -4,7 +4,7 @@
 * **支持 15 种（共 28 种） Mp3tag 支持的格式！**
 * **基于 [mutagen](https://github.com/quodlibet/mutagen) 开发。**
 
-[English](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.md) [简体中文](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.sc.md)
+[English](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.md) | [简体中文](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.sc.md)
 ## 安装依赖
 `pip3 install mutagen`
 
