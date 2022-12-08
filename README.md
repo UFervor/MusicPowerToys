@@ -1,7 +1,7 @@
 # MusicPowerTools
 ## Simple interface to edit audio file metadata.
-* **We now support 9 of 10 formats that music-tag supports!**
-* **We now support 15 of 28 formats that Mp3tag supports!**
+* **We now support 9 of 10 formats that [music-tag](https://github.com/KristoforMaynard/music-tag) supports!**
+* **We now support 15 of 28 formats that [Mp3tag](https://www.mp3tag.de) supports!**
 * **Based on [mutagen](https://github.com/quodlibet/mutagen).**
 
 [English](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.md) | [简体中文](https://github.com/hexin-lin-1024/MusicPowerToys/blob/main/README.sc.md)
